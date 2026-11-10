@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/mizan.png" alt="logo">
+        </div>
+        <div class="header-action">
+            <select id="currency-select" class="first-select">
+                <option value="MAD">MAD</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <button id="refresh-button" class="header-btn">Actualiser</button>
+        </div>
+    </header>
+
+<main>
+    <p id="request-status">  Choisissez une devise puis cliquez sur Actualiser.</p>
+   <section id="prices-container"></section>
+
+   <section class="estimateur">
+      <article>
+        <div class="titles">
+        <h1>Estimateur de bijou</h1>
+        <p>Estimer la valeur de votre bijou.</p>
+        </div>
+        <div class="inputs">
+        <div class="input">
+            <label for="gramme">Poids (en grammes)</label>
+            <input type="number" id="gramme" placeholder="Ex. : 12">
+        </div>
+        <div class="input">
+            <label for="metal-select">Métal</label>
+            <select id="metal-select">
+                <option value="XAU">Or</option>
+                <option value="XAG">Argent</option>
+            </select>
+        </div>
+        <button class="estimer-button">Estimer</button>
+        </div>
+        <p id="weight-error"></p>
+        <p id="estimate-result">Valeur estimée : — MAD</p>
+            
+      </article>
+   </section>
+</main>
+</body>
+</html>
