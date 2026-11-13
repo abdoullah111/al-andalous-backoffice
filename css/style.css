@@ -57,49 +57,46 @@ header{
     color: #435670;
     background-color: #ecd07c;
 }
-#request-status{
+#request-status.error{
   text-align: center;
   margin: 30px;
-  color: #6B7280;
+  color: #dc2626;
+  font-weight: bold;
+}
+#request-status.work{
+  text-align: center;
+  margin: 30px;
+  color: gray;
+  font-weight: bold;
 }
 #prices-container{
     display: flex;
-    gap: 5rem;
-    justify-content: center;
-    align-items: center;
 }
 
 .card1{
-    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
-    width: 40rem;
-    /* height: 25rem; */
+    width: 30rem;
     margin: 25px;
-    gap: 20px;
     border-radius: 15px;
     border: rgb(198, 156, 8) 2px solid;
 }
 .card2{
-    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
-    width: 40rem;
-    /* height: 25rem; */
-    gap: 20px;
+    width: 30rem;
     margin: 25px;
     border-radius: 15px;
     border: gray 2px solid;
 }
 
-.article-header{
+.article-header1{
     border-bottom: 5px solid rgb(198, 156, 8);
     height: 80px;
 }
 .article-header2{
     border-bottom: 5px solid gray;
     height: 80px;
-    width: 40rem;
 }
 .gold{
     padding: 20px;
@@ -109,9 +106,16 @@ header{
     padding: 20px;
     color: gray;
 }
-.phrase{
-    padding: 20px;
-    color: #6B7280;
+.phrase {
+  padding: 20px;
+  color: #1F2937;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.updated {
+  padding: 0 20px 20px;
+  color: #6B7280;
+  font-size: 0.9rem;
 }
 .estimateur{
   display: flex;
@@ -123,10 +127,10 @@ header{
   flex-direction: column;
   /* align-items: flex-start; */
   border-radius: 15px;
+  border: 2px solid #D4AF37;
   gap: 25px;
-  width: 50%;
+  width: 63.5rem;
   padding: 30px;
-  background-color: whitesmoke;
 }
 .inputs{
   display: flex;
