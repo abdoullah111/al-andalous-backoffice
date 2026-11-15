@@ -1,5 +1,4 @@
-
-
+import { calculateVariation } from "./calculator.js";
 const  pricesContainer = document.getElementById('prices-container');
 
 export function renderPrices(metals){
@@ -25,7 +24,17 @@ export function renderPrices(metals){
        const laDate = document.createElement("p");
        laDate.className = "updated"
        laDate.textContent = `Mis à jour :${new Date(metal.updatedAt).toLocaleString("fr-FR")}`;
-       card.append(laDate)
+       card.append(laDate);
+
+       if (metal.variation) {
+          const variation = document.createElement("p");
+          const isUp = metal.variation.percentage >= 0;
+
+          variation.textContent =
+            (isUp ? "↑ " : "↓ ") +metal.variation.percentage.toFixed(2) +"%";
+            variation.className = isUp ? "positive" : "negative";
+            card.append(variation);
+        }
         
        pricesContainer.append(card);
     });
