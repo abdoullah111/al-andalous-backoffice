@@ -179,3 +179,12 @@ header{
     color: red;
     font-size: 15px;
 }
+h2{
+   margin-top: 20px;
+   margin-left: 20px;
+}
+#history-chart {
+  border: 1px solid gray;
+  background: white;
+  margin-left: 20px;
+}
