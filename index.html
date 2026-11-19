@@ -56,6 +56,33 @@
 
   <canvas id="history-chart" width="800" height="300"></canvas>
 </section>
+
+<section class="controls-section">
+    <div class="inputs">
+    <div class="input">
+       <label for="Recherche"> Recherche par titre</label>
+       <input type="text" id="Recherche" placeholder="Saisir un titre d'article...">
+    </div>
+    <div class="input">
+            <label for="filtre-status">status</label>
+            <select id="filtre-status">
+                <option value="all">Tous les statuts</option>
+                <option value="available">Disponible</option>
+                <option value="reserved">Réservé</option>
+                <option value="sold">Vendu</option>
+            </select>
+    </div>
+    <div class="input">
+            <label for="metal-select">Trier</label>
+            <select id="metal-select">
+                <option value="title">Trier par titre</option>
+                <option value="price">Trier par prix</option>
+                <option value="date">Trier par date</option>
+            </select>
+        </div>
+    </div>
+</section>
+<section class="list-items"></section>
 </main>
 </body>
 </html>

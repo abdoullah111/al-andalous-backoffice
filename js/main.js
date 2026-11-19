@@ -2,6 +2,9 @@
 import { getCurrentPrices, getGoldHistory, getSilverHistory  } from "./api.js";
 import { renderPrices } from "./ui.js";
 import { calculateVariation } from "./calculator.js";
+import { request } from "./services/api.js";
+import { renderItems } from "./services/renderItems.js";
+import { getItems } from "./services/itemsService.js";
 // const data = await getCurrentPrices();
 const requestStatus = document.getElementById("request-status");
 const currencySelect = document.getElementById("currency-select");
@@ -121,3 +124,10 @@ chartContext.strokeStyle = "#d4af37";
 chartContext.lineWidth = 3;
 chartContext.stroke();
 }
+
+
+async function loadItems() {
+  const items = await getItems();
+  renderItems(items)
+}
+loadItems();

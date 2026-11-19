@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "Bague en or modifiée",
+      "description": "Nouvelle description",
+      "price": 3000,
+      "category": "jewelry",
+      "status": "available",
+      "createdAt": "2026-11-17"
+    },
+    {
+      "id": "2",
+      "title": "Collier en argent",
+      "description": "Collier artisanal en argent 925",
+      "price": 850,
+      "category": "jewelry",
+      "status": "available",
+      "createdAt": "2026-11-11"
+    },
+    {
+      "id": "3",
+      "title": "Lingot d'or 10g",
+      "description": "Lingot d'or pur de 24 carats",
+      "price": 14500,
+      "category": "ingot",
+      "status": "reserved",
+      "createdAt": "2026-11-12"
+    },
+    {
+      "id": "4",
+      "title": "Pièce en argent",
+      "description": "Pièce de collection en argent",
+      "price": 500,
+      "category": "coin",
+      "status": "available",
+      "createdAt": "2026-11-13"
+    },
+    {
+      "id": "5",
+      "title": "Bracelet en or",
+      "description": "Bracelet en or jaune 18 carats",
+      "price": 4200,
+      "category": "jewelry",
+      "status": "sold",
+      "createdAt": "2026-11-14"
+    }
+  ]
+}
