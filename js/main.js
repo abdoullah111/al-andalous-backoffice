@@ -125,9 +125,41 @@ chartContext.lineWidth = 3;
 chartContext.stroke();
 }
 
-
+let allItems = []
 async function loadItems() {
-  const items = await getItems();
-  renderItems(items)
+    allItems = await getItems();
+  renderItems(allItems) 
 }
+
+
+const inputRecherche  = document.getElementById('Recherche');
+const filtreStatus = document.getElementById('filtre-status');
+function searchItems(){
+  const search = inputRecherche.value.toLowerCase();
+  const status = filtreStatus.value.toLowerCase();
+
+  const result = allItems.filter(function(item){
+  const muchFilter = item.title.toLowerCase().includes(search);
+  const muchStatus = item.status.toLowerCase().includes(status) || status === "all"
+  
+   return muchFilter && muchStatus;
+  });
+  renderItems(result);
+}
+inputRecherche.addEventListener("input", searchItems)
+filtreStatus.addEventListener("change", searchItems);
+
+
+const trierSelect = document.getElementById('trier-select')
+function sortItemsByTitle(){
+  
+  const trierValue = trierSelect.value;
+  if(trierValue === "title"){
+    const result =  [...allItems].sort((a, b) =>{return a.title.localeCompare(b.title)})
+    renderItems(result)
+  }
+  
+}
+trierSelect.addEventListener("change", sortItemsByTitle)
 loadItems();
+

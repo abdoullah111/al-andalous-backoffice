@@ -10,6 +10,7 @@ export function renderItems(items){
         const title = document.createElement('p');
         card.appendChild(title);
         title.textContent = item.title;
+        title.className = "titre"
 
         const description = document.createElement('p');
         card.appendChild(description);
@@ -18,6 +19,7 @@ export function renderItems(items){
         const price = document.createElement('p');
         card.appendChild(price);
         price.textContent = item.price;
+        price.className = "price"
 
         const category = document.createElement('p');
         card.appendChild(category);

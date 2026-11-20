@@ -216,3 +216,11 @@ h2{
     border-radius: 10px;
     border: 2px solid rgb(240, 183, 11);
 }
+.titre{
+    font-size: 20px;
+    color: #435670;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.price{
+    color: #15803d;
+}
