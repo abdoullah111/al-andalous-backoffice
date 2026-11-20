@@ -44,6 +44,33 @@
       "category": "jewelry",
       "status": "sold",
       "createdAt": "2026-11-14"
-    }
+    },
+    {
+  "id": "6",
+  "title": "Boucles d'oreilles en or",
+  "description": "Boucles d'oreilles élégantes en or 18 carats",
+  "price": 3200,
+  "category": "jewelry",
+  "status": "available",
+  "createdAt": "2026-11-18"
+  },
+  {
+  "id": "7",
+  "title": "Pièce en or",
+  "description": "Pièce de collection en or pur",
+  "price": 5400,
+  "category": "coin",
+  "status": "reserved",
+  "createdAt": "2026-11-19"
+  },
+  {
+  "id": "8",
+  "title": "Lingot en argent 50g",
+  "description": "Lingot en argent pur de 50 grammes",
+  "price": 800,
+  "category": "ingot",
+  "status": "available",
+  "createdAt": "2026-11-20"
+  }
   ]
 }
