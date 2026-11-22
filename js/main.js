@@ -171,3 +171,74 @@ function sortItems() {
 trierSelect.addEventListener("change", sortItems)
 loadItems();
 
+// formulaire
+
+const form = document.querySelector('.formulaire');
+
+const formTitre = document.getElementById('form-titre');
+const titreError = document.getElementById('titre-error');
+
+const formDescription = document.getElementById('form-description');
+const descriptionError = document.getElementById('description-error');
+
+const priceError = document.getElementById('price-error');
+const formPrice = document.getElementById('form-price');
+
+const categoryError = document.getElementById('category-error');
+const formCategory = document.getElementById('form-category');
+
+const statusError = document.getElementById('status-error');
+const formStatus = document.getElementById('form-status');
+
+form.addEventListener("submit", function(e){
+  e.preventDefault()
+
+  const titre = formTitre.value.trim();
+  const description = formDescription.value.trim();
+  const price = formPrice.value.trim();
+  const category = formCategory.value.trim();
+  const status = formStatus.value.trim();
+
+
+  if (titre.length < 3 || titre.length > 80) {
+    titreError.textContent = "Le titre doit contenir entre 3 et 80 caractères.";
+    titreError.hidden = false;
+  }else{
+    titreError.textContent = ""
+    titreError.hidden = true;
+  }
+
+  if(description.length < 10){
+    descriptionError.textContent = "La description doit contenir au moins 10 caractères."
+    descriptionError.hidden = false;
+  }else{
+    descriptionError.textContent = ""
+    descriptionError.hidden = true;
+  }
+
+  if(Number.isNaN(price) || price <= 0){
+    priceError.textContent = "Le prix doit être strictement positif.";
+    priceError.hidden = false;
+  }else{
+    priceError.textContent = "";
+    priceError.hidden = true;
+  }
+
+  if(category === ""){
+    categoryError.textContent = "Veuillez choisir une catégorie.";
+    categoryError.hidden = false;
+  }else{
+    categoryError.textContent = "";
+    categoryError.hidden = true;
+  }
+
+  if(status === ""){
+    statusError.textContent = "Veuillez choisir une catégorie.";
+    statusError.hidden = false;
+  }else{
+    statusError.textContent = "";
+    statusError.hidden = true;
+  }
+
+});
+

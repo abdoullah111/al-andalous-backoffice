@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/main.js" defer></script>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -22,68 +24,108 @@
         </div>
     </header>
 
-<main>
-    <p id="request-status">  Choisissez une devise puis cliquez sur Actualiser.</p>
-   <section id="prices-container"></section>
+    <main>
+        <p id="request-status"> Choisissez une devise puis cliquez sur Actualiser.</p>
+        <section id="prices-container"></section>
 
-   <section class="estimateur">
-      <article>
-        <div class="titles">
-        <h1>Estimateur de bijou</h1>
-        <p>Estimer la valeur de votre bijou.</p>
-        </div>
-        <div class="inputs">
-        <div class="input">
-            <label for="gramme">Poids (en grammes)</label>
-            <input type="number" id="gramme" placeholder="Ex. : 12">
-        </div>
-        <div class="input">
-            <label for="metal-select">Métal</label>
-            <select id="metal-select">
-                <option value="XAU">Or</option>
-                <option value="XAG">Argent</option>
-            </select>
-        </div>
-        <button class="estimer-button">Estimer</button>
-        </div>
-        <p id="weight-error"></p>
-        <p id="estimate-result">Valeur estimée : — MAD</p>
-            
-      </article>
-   </section>
-   <section class="history-section">
-  <h2>Historique de l'or</h2>
+        <section class="estimateur">
+            <article>
+                <div class="titles">
+                    <h1>Estimateur de bijou</h1>
+                    <p>Estimer la valeur de votre bijou.</p>
+                </div>
+                <div class="inputs">
+                    <div class="input">
+                        <label for="gramme">Poids (en grammes)</label>
+                        <input type="number" id="gramme" placeholder="Ex. : 12">
+                    </div>
+                    <div class="input">
+                        <label for="metal-select">Métal</label>
+                        <select id="metal-select">
+                            <option value="XAU">Or</option>
+                            <option value="XAG">Argent</option>
+                        </select>
+                    </div>
+                    <button class="estimer-button">Estimer</button>
+                </div>
+                <p id="weight-error"></p>
+                <p id="estimate-result">Valeur estimée : — MAD</p>
 
-  <canvas id="history-chart" width="800" height="300"></canvas>
-</section>
+            </article>
+        </section>
+        <section class="history-section">
+            <h2>Historique de l'or</h2>
 
-<section class="controls-section">
-    <div class="inputs">
-    <div class="input">
-       <label for="Recherche"> Recherche par titre</label>
-       <input type="text" id="Recherche" placeholder="Saisir un titre d'article...">
-    </div>
-    <div class="input">
-            <label for="filtre-status">status</label>
-            <select id="filtre-status">
-                <option value="all">Tous les statuts</option>
+            <canvas id="history-chart" width="800" height="300"></canvas>
+        </section>
+
+        <section class="controls-section">
+            <div class="inputs">
+                <div class="input">
+                    <label for="Recherche"> Recherche par titre</label>
+                    <input type="text" id="Recherche" placeholder="Saisir un titre d'article...">
+                </div>
+                <div class="input">
+                    <label for="filtre-status">status</label>
+                    <select id="filtre-status">
+                        <option value="all">Tous les statuts</option>
+                        <option value="available">Disponible</option>
+                        <option value="reserved">Réservé</option>
+                        <option value="sold">Vendu</option>
+                    </select>
+                </div>
+                <div class="input">
+                    <label for="trier-select">Trier</label>
+                    <select id="trier-select">
+                        <option value="" disabled selected hidden>Trier par..</option>
+                        <option value="title">Trier par titre</option>
+                        <option value="price">Trier par prix</option>
+                        <option value="date">Trier par date</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+        <section class="list-items"></section>
+        <form class="formulaire" novalidate>
+            <h1>Ajouter un nouvel article</h1>
+            <div class="box">
+                <label for="form-titre">Le titre:</label>
+               <input type="text" id="form-titre" placeholder="Entrer le titre" required>
+               <p id="titre-error" class="s-error" hidden></p>
+            </div>
+            <div class="box">
+                <label for="form-description">Description:</label>
+               <textarea type="text" id="form-description" rows="3" placeholder="Une petite description..." required></textarea>
+               <p id="description-error" class="s-error" hidden></p>
+            </div>
+            <div class="box">
+                <label for="form-price">Price:</label>
+               <input type="number" id="form-price" placeholder="Entrer le prix" required>
+               <p id="price-error" class="s-error" hidden></p>
+            </div>
+            <div class="box">
+                <label for="form-category">La category:</label>
+               <select id="form-category" required>
+                <option value="" disabled selected hidden>choiser une category</option>
+                <option value="jewelry">jewelry</option>
+                <option value="ingot">ingot</option>
+                <option value="coin">coin</option>
+               </select>
+               <p id="category-error" class="s-error" hidden></p>
+            </div>
+            <div class="box">
+                <label for="form-status">Status:</label>
+               <select id="form-status" required>
+                <option value="" disabled selected hidden>choiser une status</option>
                 <option value="available">Disponible</option>
                 <option value="reserved">Réservé</option>
                 <option value="sold">Vendu</option>
-            </select>
-    </div>
-    <div class="input">
-            <label for="trier-select">Trier</label>
-            <select id="trier-select">
-                <option value="" disabled selected hidden>Trier par..</option>
-                <option value="title">Trier par titre</option>
-                <option value="price">Trier par prix</option>
-                <option value="date">Trier par date</option>
-            </select>
-        </div>
-    </div>
-</section>
-<section class="list-items"></section>
-</main>
+               </select>
+               <p id="status-error" class="s-error" hidden></p>
+            </div>
+            <button type="submit" class="btn">Ajouter l'article</button>
+        </form>
+    </main>
 </body>
+
 </html>
