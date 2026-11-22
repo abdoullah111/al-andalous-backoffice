@@ -276,3 +276,15 @@ h1{
     font-size: 15px;
     color: red;
 }
+
+#form-message{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.red{
+    color: red;
+}
+.green{
+    color: #15803d;
+}

@@ -4,7 +4,7 @@ import { renderPrices } from "./ui.js";
 import { calculateVariation } from "./calculator.js";
 import { request } from "./services/api.js";
 import { renderItems } from "./services/renderItems.js";
-import { getItems } from "./services/itemsService.js";
+import { getItems, createItem } from "./services/itemsService.js";
 // const data = await getCurrentPrices();
 const requestStatus = document.getElementById("request-status");
 const currencySelect = document.getElementById("currency-select");
@@ -33,7 +33,7 @@ async function loadPrices() {
     const lastIndex = history.points.length - 1;
     const currentPoint = history.points[lastIndex];
     const previousPoint = history.points[lastIndex - 1];
-    console.log(currentPoint, previousPoint);
+    // console.log(currentPoint, previousPoint);
     const previousGoldPrice = (previousPoint.c / 31.1035) * data.fx_rate;
     const goldVariation = calculateVariation(data.xau.price, previousGoldPrice);
 
@@ -172,7 +172,8 @@ trierSelect.addEventListener("change", sortItems)
 loadItems();
 
 // formulaire
-
+const btnAjouter = document.getElementById("ajouter");
+const formMessage = document.getElementById("form-message");
 const form = document.querySelector('.formulaire');
 
 const formTitre = document.getElementById('form-titre');
@@ -190,19 +191,21 @@ const formCategory = document.getElementById('form-category');
 const statusError = document.getElementById('status-error');
 const formStatus = document.getElementById('form-status');
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
   e.preventDefault()
 
   const titre = formTitre.value.trim();
   const description = formDescription.value.trim();
-  const price = formPrice.value.trim();
+  const price = Number(formPrice.value)
   const category = formCategory.value.trim();
   const status = formStatus.value.trim();
 
+  let isValid = true;
 
   if (titre.length < 3 || titre.length > 80) {
     titreError.textContent = "Le titre doit contenir entre 3 et 80 caractères.";
     titreError.hidden = false;
+    isValid = false;
   }else{
     titreError.textContent = ""
     titreError.hidden = true;
@@ -211,6 +214,7 @@ form.addEventListener("submit", function(e){
   if(description.length < 10){
     descriptionError.textContent = "La description doit contenir au moins 10 caractères."
     descriptionError.hidden = false;
+    isValid = false;
   }else{
     descriptionError.textContent = ""
     descriptionError.hidden = true;
@@ -219,6 +223,7 @@ form.addEventListener("submit", function(e){
   if(Number.isNaN(price) || price <= 0){
     priceError.textContent = "Le prix doit être strictement positif.";
     priceError.hidden = false;
+    isValid = false;
   }else{
     priceError.textContent = "";
     priceError.hidden = true;
@@ -227,6 +232,7 @@ form.addEventListener("submit", function(e){
   if(category === ""){
     categoryError.textContent = "Veuillez choisir une catégorie.";
     categoryError.hidden = false;
+    isValid = false;
   }else{
     categoryError.textContent = "";
     categoryError.hidden = true;
@@ -235,10 +241,44 @@ form.addEventListener("submit", function(e){
   if(status === ""){
     statusError.textContent = "Veuillez choisir une catégorie.";
     statusError.hidden = false;
+    isValid = false;
   }else{
     statusError.textContent = "";
     statusError.hidden = true;
   }
+  if(!isValid){
+    return;
+  }
+  const item = {
+    title : titre,
+    description : description,
+    price : price,
+    category : category,
+    status : status,
+    createdAt : new Date().toISOString().slice(0, 10)
+  }
+  btnAjouter.disabled = true;
+  formMessage.textContent = "Ajout en cours...";
+  formMessage.hidden = false;
+
+  try{
+    const createdItem = await createItem(item);
+    allItems.unshift(createdItem);
+    renderItems(allItems)
+    console.log(item);
+
+    form.reset();
+    formMessage.textContent = "Article ajouté avec succès.";
+    formMessage.className = "green"
+    formMessage.hidden = false;
+  }catch (error) {
+  formMessage.textContent ="Impossible d'ajouter l'article. Réessayez.";
+  formMessage.className = "red"
+  formMessage.hidden = false;
+  }finally {
+  btnAjouter.disabled = false;
+  }
 
 });
+
 
