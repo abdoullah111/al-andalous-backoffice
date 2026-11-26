@@ -13,3 +13,11 @@ export async function createItem(item) {
         body: JSON.stringify(item)
     });
 }
+
+export async function updateItem(id, item) {
+    return await request(`/items/${id}`, {
+        method : "PUT",
+        body: JSON.stringify(item)
+    });
+}
+

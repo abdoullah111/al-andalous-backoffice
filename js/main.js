@@ -4,7 +4,7 @@ import { renderPrices } from "./ui.js";
 import { calculateVariation } from "./calculator.js";
 import { request } from "./services/api.js";
 import { renderItems } from "./services/renderItems.js";
-import { getItems, createItem } from "./services/itemsService.js";
+import { getItems, createItem, updateItem } from "./services/itemsService.js";
 // const data = await getCurrentPrices();
 const requestStatus = document.getElementById("request-status");
 const currencySelect = document.getElementById("currency-select");
@@ -125,7 +125,7 @@ function drawGoldChart(points) {
   chartContext.stroke();
 }
 
-let allItems = []
+let allItems = [];
 async function loadItems() {
   allItems = await getItems();
   renderItems(allItems)
@@ -191,7 +191,7 @@ const formCategory = document.getElementById('form-category');
 const statusError = document.getElementById('status-error');
 const formStatus = document.getElementById('form-status');
 
-form.addEventListener("submit", async function(e){
+form.addEventListener("submit", async function (e) {
   e.preventDefault()
 
   const titre = formTitre.value.trim();
@@ -206,79 +206,110 @@ form.addEventListener("submit", async function(e){
     titreError.textContent = "Le titre doit contenir entre 3 et 80 caractères.";
     titreError.hidden = false;
     isValid = false;
-  }else{
-    titreError.textContent = ""
+  } else {
+    titreError.textContent = "";
     titreError.hidden = true;
   }
 
-  if(description.length < 10){
+  if (description.length < 10) {
     descriptionError.textContent = "La description doit contenir au moins 10 caractères."
     descriptionError.hidden = false;
     isValid = false;
-  }else{
+  } else {
     descriptionError.textContent = ""
     descriptionError.hidden = true;
   }
 
-  if(Number.isNaN(price) || price <= 0){
+  if (Number.isNaN(price) || price <= 0) {
     priceError.textContent = "Le prix doit être strictement positif.";
     priceError.hidden = false;
     isValid = false;
-  }else{
+  } else {
     priceError.textContent = "";
     priceError.hidden = true;
   }
 
-  if(category === ""){
+  if (category === "") {
     categoryError.textContent = "Veuillez choisir une catégorie.";
     categoryError.hidden = false;
     isValid = false;
-  }else{
+  } else {
     categoryError.textContent = "";
     categoryError.hidden = true;
   }
 
-  if(status === ""){
-    statusError.textContent = "Veuillez choisir une catégorie.";
+  if (status === "") {
+    statusError.textContent = "Veuillez choisir un statut.";
     statusError.hidden = false;
     isValid = false;
-  }else{
+  } else {
     statusError.textContent = "";
     statusError.hidden = true;
   }
-  if(!isValid){
+  if (!isValid) {
     return;
   }
   const item = {
-    title : titre,
-    description : description,
-    price : price,
-    category : category,
-    status : status,
-    createdAt : new Date().toISOString().slice(0, 10)
+    title: titre,
+    description: description,
+    price: price,
+    category: category,
+    status: status,
+    createdAt: new Date().toISOString().slice(0, 10)
   }
   btnAjouter.disabled = true;
   formMessage.textContent = "Ajout en cours...";
   formMessage.hidden = false;
 
-  try{
-    const createdItem = await createItem(item);
-    allItems.unshift(createdItem);
+  try {
+    let savedItem;
+    if (itemToEdit === null) {
+      savedItem = await createItem(item);
+      allItems.unshift(savedItem);
+      formMessage.textContent = "Article ajouté avec succès.";
+      formMessage.className = "green"
+      formMessage.hidden = false;
+    } else {
+      savedItem = await updateItem(itemToEdit.id, item);
+      const index = allItems.findIndex(function (item) {
+        return item.id === savedItem.id;
+      });
+      allItems[index] = savedItem;
+      itemToEdit = null;
+      btnAjouter.textContent = "Ajouter l'article";
+      formMessage.textContent = "Article modifié avec succès.";
+      formMessage.className = "green"
+      formMessage.hidden = false;
+    }
     renderItems(allItems)
-    console.log(item);
 
     form.reset();
-    formMessage.textContent = "Article ajouté avec succès.";
-    formMessage.className = "green"
+  } catch (error) {
+    formMessage.textContent = "Impossible d'ajouter l'article. Réessayez.";
+    formMessage.className = "red"
     formMessage.hidden = false;
-  }catch (error) {
-  formMessage.textContent ="Impossible d'ajouter l'article. Réessayez.";
-  formMessage.className = "red"
-  formMessage.hidden = false;
-  }finally {
-  btnAjouter.disabled = false;
+  } finally {
+    btnAjouter.disabled = false;
   }
 
 });
 
+let itemToEdit = null;
+const listItems = document.querySelector(".list-items");
+
+listItems.addEventListener('click', function (e) {
+  if (!e.target.classList.contains("btn-modifier")) return;
+
+  const id = e.target.dataset.id;
+
+  itemToEdit = allItems.find(function (item) {
+    return item.id === id;
+  });
+  btnAjouter.textContent = "Modifier l'article";
+  formTitre.value = itemToEdit.title;
+  formDescription.value = itemToEdit.description;
+  formPrice.value = itemToEdit.price;
+  formCategory.value = itemToEdit.category;
+  formStatus.value = itemToEdit.status;
+})
 

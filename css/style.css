@@ -288,3 +288,15 @@ h1{
 .green{
     color: #15803d;
 }
+.btn-supprimer {
+  display: block;
+  padding: 8px;
+  background-color: red;
+  color: white;
+}
+.btn-modifier {
+  display: block;
+  padding: 8px;
+  background-color: green;
+  color: white;
+}

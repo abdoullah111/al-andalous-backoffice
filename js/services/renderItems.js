@@ -33,6 +33,18 @@ export function renderItems(items){
         card.appendChild(createdAt);
         createdAt.textContent = item.createdAt;
 
+        const supprime = document.createElement('button');
+        card.appendChild(supprime);
+        supprime.textContent = "Supprimer";
+        supprime.className = "btn-supprimer";
+
+        const modifier = document.createElement('button');
+        card.appendChild(modifier);
+        modifier.textContent = "modifier";
+        modifier.className = "btn-modifier";
+        modifier.dataset.id = item.id;
+       
+
         body.appendChild(card)
     });
 }
